@@ -1,3 +1,5 @@
+module DeclarationFunctions where 
+
 -- 1. oddEven
 oddEven :: [a] -> [a]
 -- Функция перестановки местами соседних элементов списка

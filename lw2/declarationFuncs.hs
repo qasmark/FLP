@@ -15,11 +15,11 @@ oddEven xs = xs
 
 testOddEven :: IO ()
 testOddEven = do
-    print $ oddEven [2,5,7,9,1,8] -- Ожидается: [5,2,9,7,8,1]
-    print $ oddEven [1,2,3,4]     -- Ожидается: [2,1,4,3]
+    print $ oddEven [2,5,7,9,1,8] 
+    print $ oddEven [1,2,3,4]     
     print $ oddEven [1,2,3]
-    print $ oddEven [1]           -- Ожидается: [1]
-    print $ oddEven ([] :: [Int]) -- Ожидается: []
+    print $ oddEven [1]           
+    print $ oddEven ([] :: [Int]) 
 
 -- 2. insert
 insert :: [a] -> a -> Int -> [a]
@@ -54,9 +54,9 @@ listSumm (x:xs) (y:ys) = (x + y) : listSumm xs ys
 
 testListSumm :: IO ()
 testListSumm = do
-    print $ listSumm [1,2,3] [4,5,6] -- Ожидается: [5,7,9]
-    print $ listSumm [1,2] [4,5,6]   -- Ожидается: [5,7,6]
-    print $ listSumm [1,2,3] [4,5]   -- Ожидается: [5,7,3]
+    print $ listSumm [1,2,3] [4,5,6]
+    print $ listSumm [1,2] [4,5,6]  
+    print $ listSumm [1,2,3] [4,5]  
 
 -- 4. position
 position :: Eq a => [a] -> a -> Maybe Int
@@ -112,9 +112,9 @@ sumF2 n = sum [n - i | i <- [1..n]]
 
 testSumF2 :: IO ()
 testSumF2 = do
-    print $ sumF2 5  -- Ожидается: 10
-    print $ sumF2 10 -- Ожидается: 45
-    print $ sumF2 0  -- Ожидается: 0
+    print $ sumF2 5 
+    print $ sumF2 10 
+    print $ sumF2 0
 
 main :: IO ()
 main = do

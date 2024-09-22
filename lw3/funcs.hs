@@ -11,10 +11,14 @@ listnums n
 
 -- 2. secondlastlist. Эта функция берет список  списков и возвращает последние элементы каждого, объединенные  в список.  
 secondlastlist :: [[a]] -> Maybe [a]
-secondlastlist [] = Nothing 
-secondlastlist xss
-  | any null xss = Nothing 
-  | otherwise = Just (map last xss)
+secondlastlist [] = Just []
+secondlastlist xss = Just (recMapLast xss)
+  where
+    recMapLast :: [[a]] -> [a]
+    recMapLast [] = []
+    recMapLast (xs:xss)
+      | null xs = recMapLast xss
+      | otherwise = last xs : recMapLast xss
 
 -- 3. myunion, которая находит объединение двух  списков. 
 -- Объединением двух списков будет список содержащий элементы,  которые есть по крайней мере в одном из списков.  
@@ -47,7 +51,7 @@ main = do
 
   print $ secondlastlist [[1,2], [3,4], [5,6]]  
   print $ secondlastlist [[1,2], [], [5,6]]    
-  print $ secondlastlist [[], [], ['a']]
+  print $ secondlastlist [[], [], ['a'], ['a', 'b']]
 
   print $ myunion [1, 2, 3] [3, 4, 5]   
   print $ myunion [1,2,3] []

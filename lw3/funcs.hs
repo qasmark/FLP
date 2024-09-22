@@ -1,6 +1,4 @@
 module Lw3 where
-import Data.List (nub)
-
 
 -- 1. listnums. Она берет численный аргумент n  и возвращает список всех чисел от n до 1, включительно. 
 listnums :: Int -> Maybe [Int]
@@ -21,18 +19,19 @@ secondlastlist xss
 -- 3. myunion, которая находит объединение двух  списков. 
 -- Объединением двух списков будет список содержащий элементы,  которые есть по крайней мере в одном из списков.  
 -- Доп. условие - игнорирование дубликатов элементов в списках
-myunion xs ys = myunion' (nub xs) (nub ys)
-  where
-    myunion' [] ys = ys
-    myunion' (x:xs) ys
-      | x `elem` ys = myunion' xs ys
-      | otherwise = x : myunion' xs ys
+myunion :: Eq a => [a] -> [a] -> [a]
+myunion xs ys = myunionHelper xs (myunionHelper ys [])
+
+myunionHelper :: Eq a => [a] -> [a] -> [a]
+myunionHelper [] acc = acc
+myunionHelper (x:xs) acc
+    | x `elem` acc = myunionHelper xs acc 
+    | otherwise    = myunionHelper xs (acc ++ [x]) 
 
 -- 4.  mysubst. Получив два списка, она возвращает их разность. 
 -- Разность двух списков называется список, состоящий из элементов  первого списка, которые не принадлежат второму списку.  
 mysubst :: Eq a => [a] -> [a] -> [a]
 mysubst xs ys = xs >>= \x -> if x `elem` ys then [] else [x]
-
 
 -- 5. nposlist, берущую список списков и возвращающую список из N -х элементов подсписков с помощью функций map и (!!)  
 nposlist :: Int -> [[a]] -> Maybe [a]
@@ -53,6 +52,7 @@ main = do
   print $ myunion [1, 2, 3] [3, 4, 5]   
   print $ myunion [1,2,3] []
   print $ myunion [1,2,2,2,2,2,3] [4,4,4,4,4,4,4,5,101,101,101]
+  print $ myunion [145, 145, 12] [21, 21, 12, -5]
 
   print $ mysubst [1, 2, 3, 4] [2, 4]
   print $ mysubst [1, 2, 3, 4, 5, 10] [3, 4, 5]

@@ -40,6 +40,7 @@ mysubst xs ys = xs >>= \x -> if x `elem` ys then [] else [x]
 -- 5. nposlist, берущую список списков и возвращающую список из N -х элементов подсписков с помощью функций map и (!!)  
 nposlist :: Int -> [[a]] -> Maybe [a]
 nposlist n xss
+  | n < 0 =  Nothing
   | any (\xs -> length xs <= n) xss = Nothing
   | otherwise = Just (map (!! n) xss)
 
@@ -64,3 +65,5 @@ main = do
 
   print $ nposlist 1 [[1, 2], [3, 4], [5, 6]]      
   print $ nposlist 3 [[1, 2], [3, 4], [5, 6]]
+  print $ nposlist 0 [[1, 2], [3, 4], [5, 6]]
+  print $ nposlist (-1) [[1, 2], [3, 4], [5, 6]]

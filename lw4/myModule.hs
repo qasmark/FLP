@@ -1,4 +1,4 @@
-module LW4 (myDeleteMap, myDeleteSet, myDrop, myToLower, myMaybe, test) where
+module LW4 (myDeleteMap, myDeleteSet, myDrop, myToLower, myMaybe, myTest) where
 
 -- myDeleteMap - Удаляет элемент из Map по ключу
 data Map k a = EmptyMap | Node k a (Map k a) (Map k a)
@@ -28,12 +28,12 @@ myDeleteSet x (Element e left right)
   | x < e     = Element e (myDeleteSet x left) right
   | x > e     = Element e left (myDeleteSet x right)
   | otherwise = case (left, right) of
-      (EmptySet, _) -> right  -- No left child, promote right
-      (_, EmptySet) -> left   -- No right child, promote left
+      (EmptySet, _) -> right  -- Нет левого сына, идем в правым
+      (_, EmptySet) -> left   -- Нет правого сына, идем в левый
       (_, _) -> let minElem = findMin right
                     in Element minElem left (myDeleteSet minElem right)
   where
-    -- Find the minimum element in the right subtree
+    -- Находит наименьший элемент в правом поддереве
     findMin (Element e EmptySet _) = e
     findMin (Element _ left _)     = findMin left
 
@@ -57,29 +57,29 @@ myMaybe defaultVal f maybeVal = case maybeVal of
   Nothing -> defaultVal
   Just x  -> f x
 
-test :: (Eq a, Show a) => a -> a -> IO ()
-test expected actual
+myTest :: (Eq a, Show a) => a -> a -> IO ()
+myTest expected actual
   | expected == actual = putStrLn $ "Test passed: " ++ show actual
   | otherwise          = putStrLn $ "Test failed: expected " ++ show expected ++ ", but got " ++ show actual
 
 main :: IO ()
 main = do
   let m = Node 1 "a" (Node 0 "z" EmptyMap EmptyMap) (Node 2 "b" EmptyMap EmptyMap)
-  test (Node 1 "a" (Node 0 "z" EmptyMap EmptyMap) EmptyMap) (myDeleteMap 2 m)
-  test (Node 2 "b" (Node 0 "z" EmptyMap EmptyMap) EmptyMap) (myDeleteMap 1 m)
+  myTest (Node 1 "a" (Node 0 "z" EmptyMap EmptyMap) EmptyMap) (myDeleteMap 2 m)
+  myTest (Node 2 "b" (Node 0 "z" EmptyMap EmptyMap) EmptyMap) (myDeleteMap 1 m)
 
   let s = Element 2 (Element 1 EmptySet EmptySet) (Element 3 EmptySet EmptySet)
-  test (Element 2 (Element 1 EmptySet EmptySet) EmptySet) (myDeleteSet 3 s)
-  test (Element 3 (Element 1 EmptySet EmptySet) EmptySet) (myDeleteSet 2 s)
+  myTest (Element 2 (Element 1 EmptySet EmptySet) EmptySet) (myDeleteSet 3 s)
+  myTest (Element 3 (Element 1 EmptySet EmptySet) EmptySet) (myDeleteSet 2 s)
 
-  test [3, 4] (myDrop 2 [1, 2, 3, 4])
-  test [] (myDrop 5 [1, 2, 3])
-  test [1, 2, 3] (myDrop 0 [1, 2, 3])
+  myTest [3, 4] (myDrop 2 [1, 2, 3, 4])
+  myTest [] (myDrop 5 [1, 2, 3])
+  myTest [1, 2, 3] (myDrop 0 [1, 2, 3])
 
-  test 'a' (myToLower 'A')
-  test 'b' (myToLower 'b')
-  test '1' (myToLower '1')
-  test '\n' (myToLower '\n' )  
+  myTest 'a' (myToLower 'A')
+  myTest 'b' (myToLower 'b')
+  myTest '1' (myToLower '1')
+  myTest '\n' (myToLower '\n' )  
 
-  test 6 (myMaybe 0 (+1) (Just 5))
-  test 0 (myMaybe 0 (+1) Nothing)
+  myTest 6 (myMaybe 0 (+1) (Just 5))
+  myTest 0 (myMaybe 0 (+1) Nothing)

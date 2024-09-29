@@ -1,5 +1,6 @@
 import System.IO
 import System.Environment
+import System.Directory (renameFile) 
 import Control.Monad
 import Data.List (isInfixOf, delete)
 import Data.Char (toLower, isAsciiLower, isAsciiUpper)
@@ -26,11 +27,12 @@ viewFile path = do
             unless (command == "q") $ viewLines rest shown
 
 appendToFile :: FilePath -> String -> IO ()
-appendToFile path newContent = withFile path AppendMode $ \handle -> do
-    contents <- hGetContents handle
-    let needsNewLine = not (null contents) && last contents /= '\n'
-    let contentToAppend = if needsNewLine then "\n" ++ newContent else newContent
-    hPutStr handle contentToAppend
+appendToFile path newContent = do
+    let tempPath = path ++ ".tmp" 
+    contents <- readFile path
+    writeFile tempPath (contents ++ newContent ++ "\n")
+    renameFile tempPath path
+
 
 deleteLine :: FilePath -> Int -> IO ()
 deleteLine path lineNumber = do

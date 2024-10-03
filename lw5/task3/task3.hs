@@ -68,5 +68,4 @@ main = do
             ["latin", "long"] -> (isOnlyLatinLine, longLineFilter) 
             ["long", "latin"] -> (longLineFilter, isOnlyLatinLine)
       copyWithFilters sourcePath destPath filter1 filter2
-    ("exit" : _) -> putStrLn "Выход из программы."
     _ -> putStrLn "Unknown command. Usage file.exe:\n    view <source File>\n    append <source file> <string to add>\n    delete <source file> <string number>\n    copy <source file> <target file> [latin|long] [long|latin]"

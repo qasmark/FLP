@@ -40,7 +40,7 @@ Clone the repository:
 1) код Влада
 https://github.com/qasmark/FLP/blob/master/lw4/myModule.hs
 2) код Маши
-https://github.com/qasmark/FLP/blob/master/lw4/myModule.hs
+[https://github.com/qasmark/FLP/blob/master/lw4/myModule.hs](https://github.com/GornikMaria/FiLP/tree/main/task4)
 3) код Саши
 https://github.com/AlexPshkov/flp-labs/blob/main/lab4/task.hs
 4) код Ромы

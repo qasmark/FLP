@@ -40,12 +40,12 @@ Clone the repository:
 1) код Влада
 https://github.com/qasmark/FLP/blob/master/lw4/myModule.hs
 2) код Маши
-[https://github.com/qasmark/FLP/blob/master/lw4/myModule.hs](https://github.com/GornikMaria/FiLP/tree/main/task4)
-3) код Саши
+https://github.com/GornikMaria/FiLP/tree/main/task4
+4) код Саши
 https://github.com/AlexPshkov/flp-labs/blob/main/lab4/task.hs
-4) код Ромы
+5) код Ромы
 https://pastebin.com/sLSiDtUF
-5) код Димочки
+6) код Димочки
 https://github.com/daug32/Volgatech.FunctionalAndLogicProgramming/tree/main/lw4
-6) распределение функций
+7) распределение функций
 [Распределение функций](https://docs.google.com/spreadsheets/d/1iKtKFWsoKROdz7hfAKSmZKywzvod37OkPlblG5RvysY/edit?usp=sharing)

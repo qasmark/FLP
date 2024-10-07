@@ -7,6 +7,7 @@ Welcome to the repository containing laboratory works in the programming languag
 - [Description](#description)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [For 4th lab](#CodesParty)
 
 ## Description
 
@@ -32,3 +33,17 @@ To work with the laboratory assignments, you will need:
 Clone the repository:
    ```bash
    git clone https://github.com/qasmark/FLP.git
+   ```
+
+## CodesParty
+
+1) код Влада
+https://github.com/qasmark/FLP/blob/master/lw4/myModule.hs
+2) код Маши
+https://github.com/qasmark/FLP/blob/master/lw4/myModule.hs
+3) код Саши
+https://github.com/AlexPshkov/flp-labs/blob/main/lab4/task.hs
+4) код Ромы
+https://pastebin.com/sLSiDtUF
+5) код Димочки
+https://github.com/daug32/Volgatech.FunctionalAndLogicProgramming/tree/main/lw4 

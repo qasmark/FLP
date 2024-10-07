@@ -46,4 +46,6 @@ https://github.com/AlexPshkov/flp-labs/blob/main/lab4/task.hs
 4) код Ромы
 https://pastebin.com/sLSiDtUF
 5) код Димочки
-https://github.com/daug32/Volgatech.FunctionalAndLogicProgramming/tree/main/lw4 
+https://github.com/daug32/Volgatech.FunctionalAndLogicProgramming/tree/main/lw4
+6) распределение функций
+[Распределение функций](https://docs.google.com/spreadsheets/d/1iKtKFWsoKROdz7hfAKSmZKywzvod37OkPlblG5RvysY/edit?usp=sharing)

@@ -32,3 +32,4 @@ To work with the laboratory assignments, you will need:
 Clone the repository:
    ```bash
    git clone https://github.com/qasmark/FLP.git
+   ```

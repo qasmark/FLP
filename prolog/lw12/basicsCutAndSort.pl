@@ -85,6 +85,7 @@ sort_3 :-
 % Task 4.4.1
 nativeSort([], []).
 nativeSort(List, [Min|Sorted]) :-
+    min_list(List, Min),
     select(Min, List, Rest),
     nativeSort(Rest, Sorted).
 

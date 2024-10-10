@@ -28,7 +28,7 @@ split(L1, L2, L3) :-
     split_helper(L1, [], L2, [], L3).
 
 split_helper([], EvenAcc, EvenRes, OddAcc, OddRes) :- 
-    reverse(EvenAcc, EvenRes),
+    EvenRes = EvenAcc,
     OddRes = OddAcc.            
 split_helper([H | T], EvenAcc, EvenRes, OddAcc, OddRes) :- 
     (   0 is H mod 2

@@ -96,21 +96,23 @@ sort_4_1 :-
     write('answer: '),
     writeln(Sorted).
 
-% Task 4.4.2
+% Task 4.4.2 
 bubbleSort(List, Sorted) :-
-    bubbleSortPass(List, Sorted, _).
+    bubbleSortPass(List, Temp, Swapped),
+    (
+        Swapped -> bubbleSort(Temp, Sorted) 
+        ; 
+        Sorted = Temp
+    ).
 
-bubbleSortPass([], [], _).
-
-bubbleSortPass([X], [X], _).
-
-bubbleSortPass([X, Y|Rest], [Y, X|SortedRest], Swapped) :-
-    X > Y, 
-    !,
-    bubbleSortPass([X|Rest], SortedRest, true).
-
-bubbleSortPass([X|Rest], [X|SortedRest], Swapped) :-
-    bubbleSortPass(Rest, SortedRest, Swapped).
+bubbleSortPass([X, Y | Rest], [Y | SortedRest], true) :-
+    X > Y,
+    bubbleSortPass([X | Rest], SortedRest, _).
+bubbleSortPass([X, Y | Rest], [X | SortedRest], Swapped) :-
+    X =< Y,
+    bubbleSortPass([Y | Rest], SortedRest, Swapped).
+bubbleSortPass([X], [X], false).
+bubbleSortPass([], [], false).
 
 sort_4_2 :-
     write('list? '),
@@ -118,3 +120,83 @@ sort_4_2 :-
     bubbleSort(List, Sorted),
     write('answer: '),
     writeln(Sorted).
+
+% Task 4.4.3
+insertionSort([], []).
+insertionSort([H|T], Sorted) :-
+    insertionSort(T, SortedTail),
+    insert(H, SortedTail, Sorted).
+
+insert(X, [], [X]).
+insert(X, [Y|Rest], [X,Y|Rest]) :-
+    X =< Y, !.
+insert(X, [Y|Rest], [Y|SortedRest]) :-
+    insert(X, Rest, SortedRest).
+
+sort_4_3 :-
+    write('list? '),
+    read(List),
+    insertionSort(List, Sorted),
+    write('answer: '),
+    writeln(Sorted).
+
+% Task 4.4.4
+quickSort([], []).
+quickSort([Pivot|Rest], Sorted) :-
+    partition(Rest, Pivot, Less, Greater),
+    quickSort(Less, SortedLess),
+    quickSort(Greater, SortedGreater),
+    append(SortedLess, [Pivot|SortedGreater], Sorted).
+
+partition([], _, [], []).
+partition([H|T], Pivot, [H|Less], Greater) :-
+    H =< Pivot,
+    partition(T, Pivot, Less, Greater).
+partition([H|T], Pivot, Less, [H|Greater]) :-
+    H > Pivot,
+    partition(T, Pivot, Less, Greater).
+
+sort_4_4 :-
+    write('list? '),
+    read(List),
+    quickSort(List, Sorted),
+    write('answer: '),
+    writeln(Sorted).
+
+% Task 4.5
+common(L1, L2, L3) :-
+    append(L1, L2, L),
+    list_to_set(L, Set),
+    shellSort(Set, L3).
+
+% Task 4.7
+most_oft(List, X) :-
+    frequency(List, FreqList), % чписка частот каждого элемента в изначальном списке
+    maxFreq(FreqList, MaxFreq), 
+    findall(Item, (member(Item-MaxFreq, FreqList)), X). % поиск всех элементов с заданной частотой
+
+frequency([], []).
+frequency([H|T], [H-F|FreqList]) :-
+    count(H, [H|T], F), 
+    removeAll(H, T, NewList), % очистка всех вхождений H из хвоитса
+    frequency(NewList, FreqList). % рекурсивно продолжаем для остальноог списка
+
+count(_, [], 0). % чисто мапка на слово : частота
+count(X, [X|T], N) :-
+    count(X, T, N1),
+    N is N1 + 1.
+count(X, [Y|T], N) :-
+    X \= Y,
+    count(X, T, N).
+
+removeAll(_, [], []). % удаелние всех вхождений элмеента из списка, чтобы получить ответ
+removeAll(X, [X|T], R) :-
+    removeAll(X, T, R).
+removeAll(X, [Y|T], [Y|R]) :-
+    X \= Y,
+    removeAll(X, T, R).
+
+maxFreq([_-F], F). % страж: если один элемент в списке, возвращеам его частоту
+maxFreq([_-F|T], MaxFreq) :-
+    maxFreq(T, RestMaxFreq),
+    MaxFreq is max(F, RestMaxFreq).

@@ -56,7 +56,7 @@ gap(N, Gap) :-
     Gap > 0.
 
 shellSort(List, [], Sorted) :-
-    sort(List, Sorted). % если нет промежутков, сортировка
+    write(List).
 
 shellSort(List, [Gap|Gaps], Sorted) :-
     performInsertionSort(List, Gap, TempSorted), % insertionSort в текущем gap
@@ -177,7 +177,13 @@ common(L1, L2, L3) :-
 most_oft(List, X) :-
     frequency(List, FreqList), % чписка частот каждого элемента в изначальном списке
     maxFreq(FreqList, MaxFreq), 
-    findall(Item, (member(Item-MaxFreq, FreqList)), X). % поиск всех элементов с заданной частотой
+    findall(Item, member(Item-MaxFreq, FreqList), Items), % поиск всех элементов с заданной частотой
+    (
+        Items = [SingleItem] -> X = SingleItem 
+        ;
+        X = Items
+    ).
+
 
 frequency([], []).
 frequency([H|T], [H-F|FreqList]) :-

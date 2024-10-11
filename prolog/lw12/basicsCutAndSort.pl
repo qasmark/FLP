@@ -30,6 +30,10 @@ fib(N, F) :-
     N > 0,
     fibAccHelper(N, 1, 1, F).
 
+fib(N, _) :-
+    N =< 0,
+    write('error').
+
 fibAccHelper(1, A, _, A) :- !. 
 fibAccHelper(2, _, B, B) :- !.  
 fibAccHelper(N, A, B, F) :-

@@ -45,38 +45,53 @@ fibAccHelper(N, A, B, F) :-
 % Task 4.3 
 shellSort(List, Sorted) :-
     length(List, N),
-    gapSeq(N, Gaps),
+    generateGaps(N, Gaps), % генерация промежутков для сортировки
     shellSort(List, Gaps, Sorted).
 
-gapSeq(N, Gaps) :-
-    findall(Gap, gap(N, Gap), Gaps). % задаем последовательность промежутков из статьи на вики
+generateGaps(N, Gaps) :- % генеарция на основе деления пополам согласно статье из вики
+    findall(Gap, (between(1, N, K), Gap is N // (2^K), Gap > 0), Gaps).
 
-gap(N, Gap) :-
-    Gap is N // 2, 
-    Gap > 0.
+shellSort(Sorted, [], Sorted). % ксли закончились, список отсортирован
 
-shellSort(List, [], Sorted) :-
-    write(List).
+shellSort(List, [Gap|Gaps], Sorted) :- % для каждого промеужтка
+    gapInsertionSort(List, Gap, TempSorted), % сортировка вставками для данного промежутка
+    shellSort(TempSorted, Gaps, Sorted). % рекурсивно с оставшимися промежутками
 
-shellSort(List, [Gap|Gaps], Sorted) :-
-    performInsertionSort(List, Gap, TempSorted), % insertionSort в текущем gap
-    shellSort(TempSorted, Gaps, Sorted).
+gapInsertionSort(List, Gap, Sorted) :-
+    length(List, N),
+    gapInsertionSort(List, Gap, N, Sorted, 0).
 
-performInsertionSort(List, Gap, Sorted) :-
-    length(List, Length),
-    performInsertionSort(List, Gap, 1, Length, Sorted). 
+gapInsertionSort(Sorted, _, N, Sorted, N). % весь список пройден
 
-performInsertionSort(_, _, Current, Length, []) :-
-    Current > Length, !.
+gapInsertionSort(List, Gap, N, Sorted, I) :- % insertionSort с промежутком
+    I < N,
+    insertElementWithGap(List, I, Gap, ListAfterInsert),  % insertionSort insert на правильное место
+    I1 is I + 1,
+    gapInsertionSort(ListAfterInsert, Gap, N, Sorted, I1).
 
-performInsertionSort(List, Gap, Current, Length, [H|T]) :-
-    index(Current, Gap, List, H),
-    NewCurrent is Current + 1,
-    performInsertionSort(List, Gap, NewCurrent, Length, T).
+insertElementWithGap(List, I, Gap, NewList) :- % сортировка промежутков
+    nth0(I, List, Elem),
+    insertInSortedSublist(List, I, Gap, Elem, NewList).
 
-index(Current, Gap, List, H) :-
-    Index is Current - 1,
-    nth0(Index, List, H).
+insertInSortedSublist(List, I, Gap, Elem, NewList) :- % insert elem в отсортированный саблист, т.е. разнесенный на Gap позиций
+    J is I - Gap,  % если текущий элемент меньше предыдущего в саблитсе, меняем их местами
+    ( J >= 0, nth0(J, List, PrevElem), Elem < PrevElem ->  
+        swap(List, I, J, TempList),      
+        insertInSortedSublist(TempList, J, Gap, Elem, NewList)
+    ; NewList = List ). % если не нужно менять местами тогда возвращаем исходный лист
+
+swap(List, I, J, NewList) :-
+    nth0(I, List, ElemI),
+    nth0(J, List, ElemJ),
+    setNth(List, I, ElemJ, TempList),
+    setNth(TempList, J, ElemI, NewList).
+
+setNth([_|T], 0, Elem, [Elem|T]). % сет элемент по индексу в саблист
+setNth([H|T], N, Elem, [H|NewT]) :-
+    N > 0,
+    N1 is N - 1,
+    setNth(T, N1, Elem, NewT).
+
 
 % Task 4.3.1
 sort_3 :-

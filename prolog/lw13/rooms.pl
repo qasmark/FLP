@@ -202,16 +202,16 @@ path9(Start, Path) :-
     Но я не считаю это ошибкой, хотя тесты провалятся
 */
 path10(Start, Treasures, Path) :- 
-    bfs_to_all(Start, Treasures, [], RevPath),  % Строим путь через все сокровища
+    bfsToAll(Start, Treasures, [], RevPath),  % Строим путь через все сокровища
     reverse(RevPath, RevPathReversed), % для удобства чтения из-за того, что я плохо спроектировал BFS
     flatten(RevPathReversed, FlatPathReversed), 
     reverse(FlatPathReversed, FlatPath),  
     delete(FlatPath, Start, CorrectedPath),
     append([Start], CorrectedPath, Path).
 
-bfs_to_all(CurrentRoom, [NextTreasure|RestTreasures], Visited, FullPath) :- 
+bfsToAll(CurrentRoom, [NextTreasure|RestTreasures], Visited, FullPath) :- 
     bfs([[CurrentRoom]], NextTreasure, PathToTreasure), % Находим путь от текущей комнаты до следующей комнаты с сокровищем
     reverse(PathToTreasure, CorrectPath),
     append(Visited, CorrectPath, NewVisited), % добавляем текущий путь к общему маршруту, ищем путь через оставшиеся сокровища
-    bfs_to_all(NextTreasure, RestTreasures, NewVisited, FullPath). 
-bfs_to_all(_, [], FullPath, FullPath).
+    bfsToAll(NextTreasure, RestTreasures, NewVisited, FullPath). 
+bfsToAll(_, [], FullPath, FullPath).

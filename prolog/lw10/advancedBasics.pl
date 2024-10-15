@@ -36,5 +36,10 @@ cross(N, M, point(X, Y), NL, ML) :-
 perimetr(A, B, C, D, P, S) :-
     cross(A, B, point(X1, Y1), _, _),
     cross(C, D, point(X2, Y2), _, _),
+    cross(B, C, point(X2, Y1), _, _),
+    cross(A, D, point(X1, Y2), _, _),
+    A \= B, A \= C, A \= D,
+    B \= C, B \= D,
+    C \= D,
     P is 2 * (abs(X2 - X1) + abs(Y2 - Y1)),
     S is abs(X2 - X1) * abs(Y2 - Y1).

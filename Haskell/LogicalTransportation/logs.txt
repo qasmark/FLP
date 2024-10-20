@@ -1,0 +1,54 @@
+qasmark@qasmark~$ runhaskell trans.hs a
+Enter start state (for example, 'L L L L'):
+L L L L
+Enter finite state (for example, 'R R R R'):
+R R R R
+F W G C |~~~~|
+  W   C |~~~~| F   G
+F W   C |~~~~|     G
+      C |~~~~| F W G
+F   G C |~~~~|   W
+    G   |~~~~| F W   C
+F   G   |~~~~|   W   C
+        |~~~~| F W G C
+
+qasmark@qasmark~$ runhaskell trans.hs b
+Enter start state (for example, 'L L L L'):
+L L L L
+Enter finite state (for example, 'R R R R'):
+L R R R
+No solution.
+
+qasmark@qasmark~$ runhaskell trans.hs C
+Enter start state (for example, 'L L L L'):
+L L L R
+Enter finite state (for example, 'R R R R'):
+R R R R
+F W G   |~~~~|       C
+    G   |~~~~| F W   C
+F   G   |~~~~|   W   C
+        |~~~~| F W G C
+
+qasmark@qasmark~$ runhaskell trans.hs D
+Enter start state (for example, 'L L L L'):
+L L L L
+Enter finite state (for example, 'R R R R'):
+R R R L
+F W G C |~~~~|
+  W   C |~~~~| F   G
+F W   C |~~~~|     G
+      C |~~~~| F W G
+
+qasmark@qasmark~$ runhaskell trans.hs E
+Enter start state (for example, 'L L L L'):
+L L R L
+Enter finite state (for example, 'R R R R'):
+R R R R
+F W   C |~~~~|     G
+  W   C |~~~~| F   G
+F W G C |~~~~|
+      C |~~~~| F W G
+F   G C |~~~~|   W
+    G   |~~~~| F W   C
+F   G   |~~~~|   W   C
+        |~~~~| F W G C

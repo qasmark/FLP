@@ -37,10 +37,8 @@ visualizeState (farmer, wolf, goat, cabbage) =
 
 parseState :: String -> State
 parseState input = case words input of
-    ["L", "L", "L", "L"] -> (L, L, L, L)
-    ["R", "R", "R", "R"] -> (R, R, R, R)
     [f, w, g, c]         -> (read f, read w, read g, read c)
-    _                    -> error "Invalid data format.Usage:\nL L L L\nR R R R"
+    _                    -> error "Invalid data format. Usage:\nL L L L\nR R R R"
 
 main :: IO ()
 main = do

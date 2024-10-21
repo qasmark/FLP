@@ -40,10 +40,11 @@ parseState input = case words input of
     ["L", "L", "L", "L"] -> (L, L, L, L)
     ["R", "R", "R", "R"] -> (R, R, R, R)
     [f, w, g, c]         -> (read f, read w, read g, read c)
-    _                    -> error "Invalid data format."
+    _                    -> error "Invalid data format.Usage:\nL L L L\nR R R R"
 
 main :: IO ()
 main = do
+    putStrLn "Use this order to complete pos: 'Farmer Wolf Goat Cabbage'"
     putStrLn "Enter start state (for example, 'L L L L'):"
     startInput <- getLine
     putStrLn "Enter finite state (for example, 'R R R R'):"

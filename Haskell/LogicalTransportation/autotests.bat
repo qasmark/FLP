@@ -20,6 +20,8 @@ for %%f in (tests\*.txt) do (
 )
 
 del trans.exe
+del trans.o
+del trans.hi
 del output.txt
 
 endlocal

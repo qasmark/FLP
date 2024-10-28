@@ -1,4 +1,4 @@
-qasmark@qasmark~$ runhaskell trans.hs a
+qasmark@qasmark~$ runhaskell trans.hs A
 Enter start state (for example, 'L L L L'):
 L L L L
 Enter finite state (for example, 'R R R R'):
@@ -11,8 +11,10 @@ F   G C |~~~~|   W
     G   |~~~~| F W   C
 F   G   |~~~~|   W   C
         |~~~~| F W G C
+Total moves: 7
 
-qasmark@qasmark~$ runhaskell trans.hs b
+qasmark@qasmark~$ runhaskell trans.hs B
+Use this order to complete pos: 'Farmer Wolf Goat Cabbage'
 Enter start state (for example, 'L L L L'):
 L L L L
 Enter finite state (for example, 'R R R R'):
@@ -20,6 +22,7 @@ L R R R
 No solution.
 
 qasmark@qasmark~$ runhaskell trans.hs C
+Use this order to complete pos: 'Farmer Wolf Goat Cabbage'
 Enter start state (for example, 'L L L L'):
 L L L R
 Enter finite state (for example, 'R R R R'):
@@ -28,8 +31,10 @@ F W G   |~~~~|       C
     G   |~~~~| F W   C
 F   G   |~~~~|   W   C
         |~~~~| F W G C
+Total moves: 3
 
 qasmark@qasmark~$ runhaskell trans.hs D
+Use this order to complete pos: 'Farmer Wolf Goat Cabbage'
 Enter start state (for example, 'L L L L'):
 L L L L
 Enter finite state (for example, 'R R R R'):
@@ -38,17 +43,18 @@ F W G C |~~~~|
   W   C |~~~~| F   G
 F W   C |~~~~|     G
       C |~~~~| F W G
+Total moves: 3
 
 qasmark@qasmark~$ runhaskell trans.hs E
+Use this order to complete pos: 'Farmer Wolf Goat Cabbage'
 Enter start state (for example, 'L L L L'):
 L L R L
 Enter finite state (for example, 'R R R R'):
 R R R R
 F W   C |~~~~|     G
-  W   C |~~~~| F   G
-F W G C |~~~~|
       C |~~~~| F W G
 F   G C |~~~~|   W
     G   |~~~~| F W   C
 F   G   |~~~~|   W   C
         |~~~~| F W G C
+Total moves: 5

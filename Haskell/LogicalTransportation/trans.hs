@@ -1,6 +1,10 @@
-data Side = L | R deriving (Eq, Show, Read)
+import Data.List (nub)
+import qualified Data.Set as Set
+import Data.Maybe (isJust, fromMaybe)
 
-          -- (фермер, волк, коза, капуста)
+data Side = L | R deriving (Eq, Show, Read, Ord)
+
+-- (фермер, волк, коза, капуста)
 type State = (Side, Side, Side, Side)
 
 isValidState :: State -> Bool
@@ -19,16 +23,21 @@ getPossibleMoves (farmer, wolf, goat, cabbage) =
         move L = R
         move R = L
 
--- реализовал DFS
-solveByDFS :: [State] -> [State] -> State -> Maybe [State]
-solveByDFS visited [] _ = Nothing
-solveByDFS visited (current:rest) goalState
-    | current == goalState = Just (reverse (current:visited)) -- достигнуто конечное состояние
-    | otherwise = solveByDFS (current:visited) (nextStates ++ rest) goalState
-    where
-        nextStates = filter (`notElem` visited) (getPossibleMoves current)
+solveByBFS :: [State] -> State -> Maybe [State]
+solveByBFS visited goalState = case visited of
+    [] -> Nothing
+    (startState:_) -> bfs [[startState]] Set.empty
+  where
+    bfs [] _ = Nothing
+    bfs (path:paths) seen = case path of
+        [] -> Nothing
+        (current:_) 
+            | current == goalState -> Just (reverse path)
+            | otherwise -> bfs (paths ++ newPaths) (Set.union seen (Set.fromList nextStates))
+          where
+            nextStates = filter (`Set.notMember` seen) (getPossibleMoves current)
+            newPaths = [nextState:path | nextState <- nextStates]
 
--- сделал простую функцию для реализации псевдографики в терминале
 visualizeState :: State -> String
 visualizeState (farmer, wolf, goat, cabbage) =
     let leftBank = [if farmer == L then "F" else " ", if wolf == L then "W" else " ", if goat == L then "G" else " ", if cabbage == L then "C" else " "]
@@ -49,7 +58,9 @@ main = do
     goalInput <- getLine
     let startState = parseState startInput
     let goalState = parseState goalInput
-    let solution = solveByDFS [] [startState] goalState
+    let solution = solveByBFS [startState] goalState
     case solution of
         Nothing -> putStrLn "No solution."
-        Just steps -> mapM_ (putStrLn . visualizeState) steps
+        Just steps -> do
+            mapM_ (putStrLn . visualizeState) steps
+            putStrLn $ "Total moves: " ++ show (length steps - 1)

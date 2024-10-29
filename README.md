@@ -25,7 +25,7 @@ This repository contains the following laboratory works:
 To work with the laboratory assignments, you will need:
 
 - [Haskell Platform](https://www.haskell.org/downloads/) version 9.8.1
-- [SWI-Prolog](https://www.swi-prolog.org/)
+- [SWI-Prolog](https://www.swi-prolog.org/) verison 9.2.8-1
 
 ## Installation
 

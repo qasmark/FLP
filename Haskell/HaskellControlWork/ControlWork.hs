@@ -53,6 +53,7 @@ main = do
     print (partitionN [1,2,3,4,5,6,7] 4)
     print (partitionN [1,2,3,4,5,6,7] 5)
     print (partitionN [1,2,3,4,5,6,7] 6)
+    print (partitionN [1,2,3,4,5,6,7] 10)
 
     putStrLn "\nelemIndices:"
     print (elemIndices 3 [1,2,3,4,3,5]) 
